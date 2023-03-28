@@ -2,70 +2,21 @@ import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import Image from "next/image";
-
+import { Feed } from "~/components/Feed";
+import { CreatePostWizard } from "~/components/CreatePostWizard";
 
 dayjs.extend(relativeTime);
 
-const CreatePostWizard = () => {
-  const { user } = useUser();
-
-  if(!user) return null;
-
-  return(
-    <div className="flex gap-5 w-full">
-      <Image 
-        src={user.profileImageUrl}
-        alt="Profile image" 
-        className="w-16 h-16 rounded-full"
-        width={56}
-        height={56}
-        blurDataURL={user.profileImageUrl}
-        placeholder="blur"
-      />
-      <input placeholder="Write a birb™" className="bg-transparent grow outline-none"/>
-    </div>
-  );
-}
-
-type PostWithUser = RouterOutputs["posts"]["getAll"][number];
-
-const PostView = (props: PostWithUser) => {
-  const { post, author } = props;
-
-  return (
-    <div key={post.id} className="p-4 border-b border-slate-400 flex gap-3">
-      <Image
-        src={author.profileImageUrl} // This is the author's profile image.
-        className="w-14 h-14 rounded-full"
-        alt={`@${author.username}`}
-        width={56}
-        height={56}
-        blurDataURL={author.profileImageUrl}
-        placeholder="blur"
-      />
-      <div className="flex flex-col">
-        <div className="flex text-slate-400 gap-2">
-          <span>{`@${author.username}`}</span>
-          <span className="font-bold">·</span>
-          <span className="font-thin">{dayjs(post.createdAt).fromNow()}</span>
-        </div>
-        <span>{post.content}</span>
-      </div>
-    </div>
-  );
-};
-
 const Home: NextPage = () => {
-  const user = useUser();
-  const { data, isLoading } = api.posts.getAll.useQuery();
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
+  
+  //Start fetching asap.
+  api.posts.getAll.useQuery();
 
-  if(isLoading) return <div>Loading...</div>;
-
-  if(!data) return <div>Something went wrong</div>;
+  // Return empty div if user is not loaded yet.
+  if(!userLoaded) return <div />;
 
   return (
     <>
@@ -77,18 +28,14 @@ const Home: NextPage = () => {
       <main className="flex justify-center h-screen">
         <div className="w-full md:max-w-4xl border-x h-full border-slate-400">
           <div className="border-b border-slate-400 p-4 flex">
-            { !user.isSignedIn && (
+            { !isSignedIn && (
               <div className="flex justify-center"> 
                 <SignInButton/> 
               </div>
             )}
-            { user.isSignedIn && <CreatePostWizard/> }
+            { isSignedIn && <CreatePostWizard/> }
           </div>
-          <div className="flex flex-col">
-            {[...data]?.map((fullPost) => (
-              <PostView {...fullPost} key={fullPost.post.id}/>
-            ))}
-          </div>
+          <Feed />
         </div>
       </main>
     </>
