@@ -1,8 +1,13 @@
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import { useState } from "react";
+import { api } from "~/utils/api";
 
 export const CreatePostWizard = () => {
     const { user } = useUser();
+    const [input, setInput] = useState("");
+
+    const { mutate } = api.posts.create.useMutation();
 
     if(!user) return null;
 
@@ -17,7 +22,14 @@ export const CreatePostWizard = () => {
                 blurDataURL={user.profileImageUrl}
                 placeholder="blur"
             />
-            <input placeholder="Write a birb™" className="bg-transparent grow outline-none"/>
+            <input 
+                placeholder="Write a birb™" 
+                className="bg-transparent grow outline-none"
+                type={"text"}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+            />
+            <button onClick={ () => mutate({ content: input })}> Post </button>
         </div>
     );
 };
