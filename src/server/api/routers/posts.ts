@@ -67,14 +67,14 @@ export const postsRouter = createTRPCRouter({
     create: privateProcedure
         .input(
             z.object({
-                content: z.string().min(1).max(1000),
+                content: z.string().min(1, "Birb must contain at least 1 character").max(1000, "Birb must not contain more than 1000 characters"),
             })
         )
         .mutation(async ({ ctx, input }) => {
             const authorId = ctx.userId;
 
             const { success } = await ratelimit.limit(authorId);
-            
+
             if (!success) {
                 throw new TRPCError({
                     code: "TOO_MANY_REQUESTS",
