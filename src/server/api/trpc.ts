@@ -25,11 +25,8 @@ import { prisma } from "~/server/db";
  * @see https://trpc.io/docs/context
  */
 export const createTRPCContext = (opts: CreateNextContextOptions) => {
-
   const { req } = opts;
-
   const sesh = getAuth(req);
-
   const userId = sesh.userId;
 
   return {
@@ -87,6 +84,8 @@ export const createTRPCRouter = t.router;
  */
 export const publicProcedure = t.procedure;
 
+
+/**Private authorized procedure*/
 const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
   if (!ctx.userId) {
     throw new TRPCError({
