@@ -1,19 +1,10 @@
-import type { User } from "@clerk/nextjs/dist/api"
 import clerkClient from "@clerk/clerk-sdk-node";
 import { z } from "zod";
 import { createTRPCRouter, privateProcedure, publicProcedure } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import { Ratelimit } from "@upstash/ratelimit"; // for deno: see above
 import { Redis } from "@upstash/redis";
-
-
-const filterUserForClient = (user: User) => {
-    return { 
-        id: user.id, 
-        username: user.username, 
-        profileImageUrl: user.profileImageUrl 
-    }
-}
+import { filterUserForClient } from "~/server/helpers/filterUserForClient";
 
 // Create a new ratelimiter, that allows 5 requests per 1 minute
 const ratelimit = new Ratelimit({
