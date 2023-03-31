@@ -67,6 +67,7 @@ export const CreatePostWizard = () => {
                         }
                     }
                 }}
+                disabled={isPosting}
             />
             {input !== "" && !isPosting && (
                 <button onClick={() => mutate({ content: input })}> 
