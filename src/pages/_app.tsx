@@ -7,7 +7,15 @@ import { Toaster } from "react-hot-toast";
 const MyApp: AppType = ({ Component, pageProps }) => {
   return(
     <ClerkProvider {...pageProps} >
-      <Toaster position="bottom-center"/>
+      <Toaster 
+        position="bottom-center" 
+        toastOptions={{
+          style: {
+            borderRadius: '10px', 
+            background: '#333',
+            color: '#fff',
+          }
+        }}/>
       <Component {...pageProps} />
     </ClerkProvider>
   ); 
