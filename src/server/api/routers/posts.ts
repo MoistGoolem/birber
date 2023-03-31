@@ -67,6 +67,7 @@ export const postsRouter = createTRPCRouter({
     create: privateProcedure
         .input(
             z.object({
+                //content: z.string().emoji("Not an emoji").min(1, "Birb must contain at least 1 character").max(1000, "Birb must not contain more than 1000 characters"),
                 content: z.string().min(1, "Birb must contain at least 1 character").max(1000, "Birb must not contain more than 1000 characters"),
             })
         )

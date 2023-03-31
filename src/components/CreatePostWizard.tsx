@@ -22,7 +22,6 @@ export const CreatePostWizard = () => {
         onSuccess: () => {
             setInput("");
             void ctx.posts.getAll.invalidate();
-            
         },
         onError: (err) => {
             const errorMessage = err.data?.zodError?.fieldErrors.content;
