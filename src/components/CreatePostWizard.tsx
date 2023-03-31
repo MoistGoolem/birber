@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
+import { LoadingSpinner } from "./Loading";
 
 export const CreatePostWizard = () => {
     const { user } = useUser();
@@ -58,9 +59,25 @@ export const CreatePostWizard = () => {
                 type={"text"}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                disabled={isPosting}
+                onKeyDown={(e) => {
+                    if(e.key ==="Enter") {
+                        e.preventDefault();
+                        if(input !== "") {
+                            mutate({ content: input });
+                        }
+                    }
+                }}
             />
-            <button onClick={ () => mutate({ content: input })}> Post </button>
+            {input !== "" && !isPosting && (
+                <button onClick={() => mutate({ content: input })}> 
+                    Post 
+                </button>
+            )}
+            {isPosting && (
+                <div className="flex justify-center items-center">
+                    <LoadingSpinner size={25}/>
+                </div>
+            )}
         </div>
     );
 };
