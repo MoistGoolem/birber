@@ -21,16 +21,18 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         <title>{data.username}</title>
       </Head>
       <PageLayout>
-        <div className="bg-slate-600 h-48 relative">
+        <div className="bg-slate-600 h-36 relative">
           <Image 
             src={data.profileImageUrl}
             alt={`${data.username ?? ""}'s profile image`}
             width={128}
             height={128}
-            className="-mb-[64px] absolute bottom-0 left-0 ml-4 rounded-full border-4 border-black"
+            className="-mb-[64px] absolute bottom-0 left-0 ml-4 rounded-full border-4 border-black bg-black"
           />
-          <div>{data.username}</div>
         </div>
+        <div className="h-[64px]"></div>
+        <div className="p-5 text-2xl font-bold">{`@${data.username ?? ""}`}</div>
+        <div className="border-b border-slate-600 w-full"></div>
       </PageLayout>
     </>
   );
