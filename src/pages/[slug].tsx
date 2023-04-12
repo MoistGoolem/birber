@@ -16,7 +16,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   return (
     <>
       <Head>
-        <title>{username}</title>
+        <title>{data.username}</title>
       </Head>
       <main className="flex justify-center h-screen">
         <div>
