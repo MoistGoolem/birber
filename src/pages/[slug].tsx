@@ -5,6 +5,7 @@ import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import superjson from "superjson";
+import { PageLayout } from "~/components/Layout";
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const {data} = api.profile.getUserByUsername.useQuery({
@@ -18,11 +19,11 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
       <Head>
         <title>{data.username}</title>
       </Head>
-      <main className="flex justify-center h-screen">
+      <PageLayout>
         <div>
           {data.username}
         </div>
-      </main>
+      </PageLayout>
     </>
   );
 };
