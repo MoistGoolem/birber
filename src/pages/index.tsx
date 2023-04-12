@@ -10,12 +10,10 @@ dayjs.extend(relativeTime);
 
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
-  
-  //Start fetching asap.
-  api.posts.getAll.useQuery();
 
-  // Return empty div if user is not loaded yet.
-  if(!userLoaded) return <div />;
+  api.posts.getAll.useQuery();  //Start fetching asap.
+
+  if(!userLoaded) return <div />;  // Return empty div if user is not loaded yet.
 
   return (
     <main className="flex justify-center h-screen">

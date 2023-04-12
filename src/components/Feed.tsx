@@ -15,5 +15,5 @@ export const Feed = () => {
                 <PostView {...fullPost} key={fullPost.post.id}/>
             ))}
         </div>
-  );
+    );
 };

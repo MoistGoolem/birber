@@ -18,7 +18,6 @@ export const profileRouter = createTRPCRouter({
                     message: 'User not found'
                 });
             }
-
             return filterUserForClient(user);
     }),
 });

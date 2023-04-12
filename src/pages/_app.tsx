@@ -21,7 +21,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
             background: '#333',
             color: '#fff',
           }
-        }}/>
+        }}
+      />
       <Component {...pageProps} />
     </ClerkProvider>
   ); 
