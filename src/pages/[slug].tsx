@@ -6,6 +6,7 @@ import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import superjson from "superjson";
 import { PageLayout } from "~/components/Layout";
+import Image from "next/image";
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const {data} = api.profile.getUserByUsername.useQuery({
@@ -20,8 +21,15 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         <title>{data.username}</title>
       </Head>
       <PageLayout>
-        <div>
-          {data.username}
+        <div className="bg-slate-600 h-48 relative">
+          <Image 
+            src={data.profileImageUrl}
+            alt={`${data.username ?? ""}'s profile image`}
+            width={128}
+            height={128}
+            className="-mb-[64px] absolute bottom-0 left-0 ml-4 rounded-full border-4 border-black"
+          />
+          <div>{data.username}</div>
         </div>
       </PageLayout>
     </>
