@@ -7,6 +7,7 @@ import { prisma } from "~/server/db";
 import superjson from "superjson";
 import { PageLayout } from "~/components/Layout";
 import Image from "next/image";
+import { ProfileFeed } from "~/components/ProfileFeed";
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const {data} = api.profile.getUserByUsername.useQuery({
@@ -32,7 +33,9 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         </div>
         <div className="h-[64px]"></div>
         <div className="p-5 text-2xl font-bold">{`@${data.username ?? ""}`}</div>
+        <div className="h-[16px]"></div>
         <div className="border-b border-slate-600 w-full"></div>
+        <ProfileFeed userId={data.id}/>
       </PageLayout>
     </>
   );

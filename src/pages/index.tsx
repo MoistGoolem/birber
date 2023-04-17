@@ -1,13 +1,9 @@
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import { api } from "~/utils/api";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Feed } from "~/components/Feed";
 import { CreatePostWizard } from "~/components/CreatePostWizard";
 import { PageLayout } from "~/components/Layout";
-
-dayjs.extend(relativeTime);
 
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
