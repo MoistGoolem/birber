@@ -1,7 +1,8 @@
+import type { RouterOutputs } from "~/utils/api";
+
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
-import type { RouterOutputs } from "~/utils/api";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
@@ -16,7 +17,7 @@ export const PostView = (props: PostWithUser) => {
       <Image
         src={author.profileImageUrl} // This is the author's profile image.
         className="w-14 h-14 rounded-full"
-        alt={`@${author.username}`}
+        alt={`@${author.username}'s profile picture`}
         width={56}
         height={56}
         blurDataURL={author.profileImageUrl}

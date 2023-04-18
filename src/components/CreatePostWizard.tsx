@@ -55,7 +55,7 @@ export const CreatePostWizard = () => {
             <input 
                 placeholder="Write a birb™" 
                 className="bg-transparent grow outline-none"
-                type={"text"}
+                type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {

@@ -17,7 +17,6 @@ export const ProfileFeed = (props: {userId: string}) => {
             {data.map((fullPost) => (
                 <PostView {...fullPost} key={fullPost.post.id}/>
             ))}
-
         </div>
     )
 };
